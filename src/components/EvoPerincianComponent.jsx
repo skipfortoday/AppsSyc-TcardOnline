@@ -52,9 +52,6 @@ const TableComponent = (props) => {
       dataField: "id",
       text: "ID",
       sort: true,
-      headerStyle: () => {
-        return { width: "5%" };
-      },
     },
     {
       dataField: "nama",
