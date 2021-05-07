@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Col from "reactstrap/lib/Col";
-import Container from "reactstrap/lib/Container";
 import Row from "reactstrap/lib/Row";
-import { getUsersList, deleteDataUser } from '../actions/userAction'
-import EvoPerincianComponent from "../components/EvoPerincianComponent";
-import ListEvoPerincianComponent from "../components/ListGroupComponents/ListEvoPerincianComponent";
+import EvoPerincianComponent from "../components/TableComponents/EvoPerincianComponent";
+import JumbotronComponent from "../components/JumbotronComponent";
+import { deleteDataUser, getUsersList } from "../actions/userAction";
+import EvoPerincianCloudComponent from "../components/TableComponents/EvoPerincianCloudComponent";
 
 class EvoPerincianContainer extends Component {
   componentDidMount() {
@@ -17,29 +17,15 @@ class EvoPerincianContainer extends Component {
     
     return (
       <div>
-        <Container>
-        <Row>
-          <Col xs="3">
-          <ListEvoPerincianComponent/>
-          </Col>
-          <Col xs="3">
-          
-          </Col>
-          <Col xs="3">
-          <ListEvoPerincianComponent/>
-          </Col>
-        </Row>
+        <JumbotronComponent/>
         <Row >
-          <Col>
-               
+          <Col>    
               <EvoPerincianComponent/>
           </Col>
           <Col>
-         
-              <EvoPerincianComponent/>
+              <EvoPerincianCloudComponent/>
           </Col>
         </Row>
-        </Container>
       </div>
     );
   }

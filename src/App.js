@@ -11,9 +11,9 @@ import EvoPerincianContainer from "./containers/EvoPerincianContainer";
 export default class App extends Component {
   render() {
     return (
-      <div>
-        <NavbarComponent />
+      <div> 
         <BrowserRouter>
+        <NavbarComponent />
           <Route path="/" exact component={HomeContainer} />
           <Route path="/create" exact component={CreateUserContainer} />
           <Route path="/detail/:id" exact component={DetailUserContainer} />

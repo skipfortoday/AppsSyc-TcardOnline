@@ -15,13 +15,11 @@ const JumbotronComponent = (props) => {
     <div>
       <Jumbotron>
         <Container>
-          <h1 className="display-3">{props.title}</h1>
-         
+          <h2 >{props.title}</h2>
           <hr className="my-2" />
           <p className="lead">
             Tcard Syncron database dari server klinik ke database cloud 
           </p>
-         
         </Container>
       </Jumbotron>
     </div>

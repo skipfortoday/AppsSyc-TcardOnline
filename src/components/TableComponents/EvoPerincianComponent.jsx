@@ -1,14 +1,16 @@
 import React from "react";
 import BootstrapTable from "react-bootstrap-table-next";
-import { Container, Button, Row, Col, Spinner } from "reactstrap";
+import { Container, Row, Col, Spinner } from "reactstrap";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import swal from 'sweetalert';
-import { deleteUser } from "../actions/userAction";
+import { deleteUser } from "../../actions/userAction";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCloud, faServer } from "@fortawesome/free-solid-svg-icons";
 
 const { SearchBar } = Search;
+
 
 const handleClick = (dispatch, id) => {
   
@@ -45,23 +47,34 @@ const mapStateToProps = (state) => {
   };
 };
 
-const TableComponent = (props) => {
+const rowStyle = { };
+
+const EvoPerincianComponent = (props) => {
 
   const columns = [
     {
       dataField: "id",
-      text: "ID",
+      text: "Flag ID",
       sort: true,
+      style: () => {
+        return { padding: "2px" };
+      },
     },
     {
       dataField: "nama",
-      text: "Nama",
+      text: "Kode Cabang",
       sort: true,
+      style: () => {
+        return { padding: "2px" };
+      },
     },
     {
       dataField: "alamat",
-      text: "Alamat",
+      text: "Waktu",
       sort: true,
+      style: () => {
+        return { padding: "2px" };
+      },
     },
   ];
 
@@ -82,8 +95,8 @@ const TableComponent = (props) => {
             
               <Row>
               <Col>
-                  <div className="float-  left">
-                    <h5>Data Table Evoucher Perincian</h5>
+                  <div className="float-left">
+                    <FontAwesomeIcon icon={faServer}/><h5>Data from Server</h5>
                   </div>
                 </Col>
                 <Col>
@@ -95,7 +108,8 @@ const TableComponent = (props) => {
 
               <BootstrapTable
                 {...props.baseProps}
-                pagination={paginationFactory()}
+                rowStyle={ rowStyle }
+                pagination={paginationFactory({sizePerPage:'20'})}
                 striped
                 bordered={ false }
               />
@@ -115,4 +129,4 @@ const TableComponent = (props) => {
   );
 };
 
-export default connect(mapStateToProps, null)(TableComponent);
+export default connect(mapStateToProps, null)(EvoPerincianComponent);
