@@ -1,36 +1,13 @@
 import React from "react";
 import BootstrapTable from "react-bootstrap-table-next";
-import { Container, Button, Row, Col, Spinner } from "reactstrap";
+import { Container, Row, Col, Spinner } from "reactstrap";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import swal from 'sweetalert';
-import { deleteUser } from "../../actions/userAction";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloud } from "@fortawesome/free-solid-svg-icons";
 
 const { SearchBar } = Search;
-
-const handleClick = (dispatch, id) => {
-  
-  swal({
-    title: "Apakah Anda yakin akan menghapus data ini ?",
-    icon: "warning",
-    buttons: true,
-    dangerMode: true,
-  })
-  .then((willDelete) => {
-    if (willDelete) {
-      dispatch(deleteUser(id))
-      swal("Data User Sukses dihapus", {
-        icon: "success",
-      });
-    } else {
-      swal("Data gagal dihapus");
-    }
-  });
-}
 
 
 const defaultSorted = [
@@ -40,36 +17,63 @@ const defaultSorted = [
   },
 ];
 
+
 const mapStateToProps = (state) => {
   return {
-    getUsersList: state.users.getUsersList,
-    errorUsersList: state.users.errorUsersList,
+    getTcardEvoPerincian: state.tcard.getTcardEvoPerincian,
+    errorTcardEvoPerincian: state.tcard.errorTcardEvoPerincian,
   };
 };
+
+const customTotal = (from, to, size) => (
+  <span className="react-bootstrap-table-pagination-total">
+    show { from } to { to } of { size } 
+  </span>
+);
 
 const EvoPerincianCloudComponent = (props) => {
 
   const columns = [
     {
-      dataField: "id",
-      text: "ID",
+      dataField: "RecordNum",
+      text: "RecNum",
       sort: true,
+      headerStyle: () => {
+        return { textAlign:'center' };
+      },
       style: () => {
         return { padding: "2px" };
       },
     },
     {
-      dataField: "nama",
-      text: "Nama",
+      dataField: "Flag",
+      text: "Flag ID",
       sort: true,
+      headerStyle: () => {
+        return { textAlign:'center' };
+      },
       style: () => {
         return { padding: "2px" };
       },
     },
     {
-      dataField: "alamat",
-      text: "Alamat",
+      dataField: "Lokasi",
+      text: "Lokasi",
       sort: true,
+      headerStyle: () => {
+        return { width:"10%" , textAlign:'center' };
+      },
+      style: () => {
+        return { padding: "2px" , };
+      },
+    },
+    {
+      dataField: "Time",
+      text: "Waktu",
+      sort: true,
+      headerStyle: () => {
+        return { width: "35%",  textAlign:'center' };
+      },
       style: () => {
         return { padding: "2px" };
       },
@@ -79,11 +83,11 @@ const EvoPerincianCloudComponent = (props) => {
   
   return (
     <Container>
-      {props.getUsersList ? (
+      {props.getTcardEvoPerincian ? (
         <ToolkitProvider
           bootstrap4
           keyField="id"
-          data={props.getUsersList}
+          data={props.getTcardEvoPerincian}
           columns={columns}
           defaultSorted={defaultSorted}
           search
@@ -105,7 +109,18 @@ const EvoPerincianCloudComponent = (props) => {
             
               <BootstrapTable
                 {...props.baseProps}
-                pagination={paginationFactory({sizePerPage:'20'})}
+                rowStyle={ { padding:'2',textAlign:'center'}}
+                pagination={ paginationFactory({
+                  showTotal: true,
+                  paginationTotalRenderer: customTotal,
+                  disablePageTitle: true,
+                  sizePerPageList: [{
+                    text: '20', value: 20
+                  }, {
+                    text: '35', value: 35
+                  }, {
+                    text: '50', value: 50
+                  }]}) }
                 striped
                 bordered={ false }
               />
@@ -114,8 +129,8 @@ const EvoPerincianCloudComponent = (props) => {
         </ToolkitProvider>
       ) : (
         <div className="text-center">
-          {props.errorUsersList ? (
-            <h4>{props.errorUsersList}</h4>
+          {props.errorTcardEvoPerincian ? (
+            <h4>{props.errorTcardEvoPerincian}</h4>
           ) : (
             <Spinner color="dark" />
           )}
