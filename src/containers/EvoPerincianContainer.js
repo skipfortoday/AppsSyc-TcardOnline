@@ -6,22 +6,47 @@ import EvoPerincianComponent from "../components/TableComponents/EvoPerincianCom
 import JumbotronComponent from "../components/JumbotronComponent";
 import EvoPerincianCloudComponent from "../components/TableComponents/EvoPerincianCloudComponent";
 import { getLTcardEvoPerincian, getTcardEvoPerincian } from "../actions/tcardAction";
+import firebase from '../firebase';
 
 class EvoPerincianContainer extends Component {
+
   componentDidMount() {
-    // this.props.dispatch(getLTcardEvoPerincian());
+
+
+    // setInterval(() => {
+    //   this.props.dispatch(getLTcardEvoPerincian());
+    // }, 3000);
+    // 
     // this.props.dispatch(getTcardEvoPerincian());
-    setInterval(() => {
-      this.props.dispatch(getLTcardEvoPerincian());
-    }, 3000);
-    setInterval(() => {
-      this.props.dispatch(getTcardEvoPerincian());
-    }, 3000);
+    // setInterval(() => {
+    //   
+    // }, 3000);
+    firebase.database().ref('/evoperincian')
+      .on('value', snapshot => {
+        const data = snapshot.val();
+        console.log(data)
+        this.props.dispatch(getTcardEvoPerincian());
+        this.props.dispatch(getLTcardEvoPerincian());
+      });  
+
+
   }
 
+  // componentDidUpdate(){
+  //   this.props.dispatch(getLTcardEvoPerincian());
+  //   this.props.dispatch(getTcardEvoPerincian());
+  // }
+
+
+
+
+  // componentDidUpdate(){
+  //   this.props.dispatch(getTcardEvoPerincian());
+  //   this.props.dispatch(getLTcardEvoPerincian());
+  // }
 
   render() {
-    
+  
     return (
       <div>
         <JumbotronComponent/>
